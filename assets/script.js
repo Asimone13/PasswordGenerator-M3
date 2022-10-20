@@ -62,6 +62,25 @@ function getPasswordLength() {
   return userChoice;
 }
 
+//function simplifies code for repetitive user options
+function getChoice(currentOption) {
+  var userChoice = "a",
+    messagePrompt = "";
+  var messagePrompt = ('Would you like '.concat(currentOption));
+  messagePrompt = messagePrompt.concat(' characters (y/n)?');
+  // This loop makes sure response is vaid.
+  while (userChoice = "a") {
+    userChoice = (window.prompt(messagePrompt));
+    // Added the below lines for mobile ease
+    userChoice = userChoice.toLowerCase();
+    if (userChoice == "y") {
+      return true;
+    } else if (userChoice == "n") {
+      return false;
+    }
+  }
+}
+
     
 
   
