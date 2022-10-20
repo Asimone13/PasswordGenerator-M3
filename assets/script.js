@@ -11,6 +11,7 @@ function generatePassword() {
   var passwordLength = getPasswordLength();
   var charTypeSelected = false;
   
+  //Loop makes sure users select at least one character type
   while (charTypeSelected == false) {
     var lowerCase = getChoice("lowercase");
     var upperCase = getChoice("uppercase");
@@ -23,8 +24,50 @@ function generatePassword() {
     }
   }
 
+  //if statements determine choices and add to blank array
+  if (lowerCase) {
+    selectedArray = selectedArray.concat(lowerCaseSet);
+  }
+  if (upperCase) {
+    selectedArray = selectedArray.concat(upperCaseSet);
+  }
+  if (numericCharacters) {
+    selectedArray = selectedArray.concat(numSet);
+  }
+  if (specialCharacters) {
+    selectedArray = selectedArray.concat(specialSet);
+  }
+
+  var passwordString = "";
+  //loop takes the added array, randomly select elements from it, then adds selections to a string, generating the password.
+  for (var i = 0; i < passwordLength; i++) {
+    passwordString += selectedArray[Math.floor(Math.random() * (selectedArray.length))];
+  }
+
+  return passwordString;
+}
+
+function getPasswordLength() {
+  var userChoice = 0;
+  while ((userChoice < 8) || (userChoice > 128)) {
+    userChoice = parseInt(window.prompt("Enter the number of characters between 8 and 128: "));
+
+     // Checking here to make sure the user entered a number and not a letter.
+     if (isNaN(userChoice)) {
+      // This will reset the choice value to 0 so it can restart the loop if the user entered anything besides a number.
+      userChoice = 0;
+    }
+  }
+
+  return userChoice;
+}
+
+    
+
   
-// Get references to the #generate element
+
+
+    // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
